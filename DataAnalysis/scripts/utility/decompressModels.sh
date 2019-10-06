@@ -12,8 +12,8 @@ PATH_BussyBox=${PATH_DATA}/busybox/models
 ####### busyBox
 for year in ${PATH_BussyBox}/*; do
 	cd ${year}
-	for run in *; do
-		tar -xzvf ${run}.tar.gz ${run}
+	for run in *.tar.gz; do
+		tar -xzvf ${run}
 	done
 done
 

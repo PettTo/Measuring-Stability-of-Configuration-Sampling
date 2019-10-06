@@ -10,46 +10,46 @@ PATH_FinancialServices01=${PATH_DATA}/financialServices01/samples
 PATH_BussyBox=${PATH_DATA}/busybox/samples
 
 ####### unzip finserv gz
-for version in ${PATH_FinancialServices01}/*; do
-	for procedure in ${version}/*; do 
-		#cd ${procedure}
-		for run in ${procedure}/*; do
-			for conf in ${run}/*; do
-				gunzip ${conf}
-			done
-		done
-	done
-done
-
-####### automotive02
-#for version in ${PATH_Automotive02}/*; do
+#for version in ${PATH_FinancialServices01}/*; do
 #	for procedure in ${version}/*; do 
-#		cd ${procedure}
-#		for run in *; do
-#			tar -xzvf ${run}.tar.gz
+#		#cd ${procedure}
+#		for run in ${procedure}/*; do
+#			for conf in ${run}/*; do
+#				gunzip ${conf}
+#			done
 #		done
 #	done
 #done
+
+####### automotive02
+for version in ${PATH_Automotive02}/*; do
+	for procedure in ${version}/*; do 
+		cd ${procedure}
+		for run in *.tar.gz; do
+			tar -xzvf ${run}
+		done
+	done
+done
 
 ####### finacnialServices01
 #for version in ${PATH_FinancialServices01}/*; do
 #	for procedure in ${version}/*; do 
 #		cd ${procedure}
-#		for run in *; do
-#			tar -xzvf ${run}.tar.gz
+#		for run in *.tar.gz; do
+#			tar -xzvf ${run}
 #		done
 #	done
 #done
 
 ####### busyBox
-#for version in ${PATH_BussyBox}/*; do
-#	for procedure in ${version}/*; do 
-#		cd ${procedure}
-#		for run in *; do
-#			tar -xzvf ${run}.tar.gz
-#		done
-#	done
-#done
+for version in ${PATH_BussyBox}/*; do
+	for procedure in ${version}/*; do 
+		cd ${procedure}
+		for run in *.tar.gz; do
+			tar -xzvf ${run}
+		done
+	done
+done
 
 
 
