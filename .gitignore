@@ -30,3 +30,7 @@
 hs_err_pid*
 
 
+/DataAnalysis/tools/StabilityCalculator/Example/automotive02
+/DataAnalysis/tools/StabilityCalculator/Example
+/DataAnalysis/tools/Kclause
+/DataAnalysis/tools/stability_evaluator_old
