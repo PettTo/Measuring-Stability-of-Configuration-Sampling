@@ -10,17 +10,7 @@ PATH_FinancialServices01=${PATH_DATA}/financialServices01/samples/
 PATH_BussyBox=${PATH_DATA}/busybox/samples/
 
 ####### automotive02
-for version in ${PATH_Automotive02}/*; do
-	for procedure in ${version}/*; do 
-		cd ${procedure}
-		for run in *; do
-			tar -zcvf ${run}.tar.gz ${run}
-		done
-	done
-done
-
-####### finacnialServices01
-#for version in ${PATH_FinancialServices01}/*; do
+#for version in ${PATH_Automotive02}/*; do
 #	for procedure in ${version}/*; do 
 #		cd ${procedure}
 #		for run in *; do
@@ -29,8 +19,8 @@ done
 #	done
 #done
 
-####### busyBox
-for version in ${PATH_BussyBox}/*; do
+####### finacnialServices01
+for version in ${PATH_FinancialServices01}/*; do
 	for procedure in ${version}/*; do 
 		cd ${procedure}
 		for run in *; do
@@ -38,6 +28,16 @@ for version in ${PATH_BussyBox}/*; do
 		done
 	done
 done
+
+####### busyBox
+#for version in ${PATH_BussyBox}/*; do
+#	for procedure in ${version}/*; do 
+#		cd ${procedure}
+#		for run in *; do
+#			tar -zcvf ${run}.tar.gz ${run}
+#		done
+#	done
+#done
 
 
 
