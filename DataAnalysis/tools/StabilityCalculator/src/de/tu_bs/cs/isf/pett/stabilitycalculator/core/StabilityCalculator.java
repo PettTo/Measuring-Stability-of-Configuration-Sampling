@@ -2,11 +2,11 @@ package de.tu_bs.cs.isf.pett.stabilitycalculator.core;
 
 public class StabilityCalculator {
 
-	private static final String metric = "MSOC"; 
-	private static final String pathFM_old = "./Example/Graph_Library_Evolution/2010-05-04_15-45-25.xml";
-	private static final String pathFM_new = "./Example/Graph_Library_Evolution/2010-05-05_00-40-15.xml";
-	private static final String pathSample_old = "./Example/Graph_Library_Evolution/Samples/Chvatal/GPL1";
-	private static final String pathSample_new = "./Example/Graph_Library_Evolution/Samples/Chvatal/GPL2";
+	private static final String metric = "ICST"; 
+	private static final String pathFM_old = "./Example/busybox/2010-05-04_15-45-25.xml";
+	private static final String pathFM_new = "./Example/busybox/2010-05-05_00-40-15.xml";
+	private static final String pathSample_old = "./Example/busybox/Samples/Chvatal/2010-05-04_15-45-25";
+	private static final String pathSample_new = "./Example/busybox/Samples/Chvatal/2010-05-05_00-40-15";
 	private static final String name1 = "Version1"; 
 	private static final String name2 = "Version2";
 	

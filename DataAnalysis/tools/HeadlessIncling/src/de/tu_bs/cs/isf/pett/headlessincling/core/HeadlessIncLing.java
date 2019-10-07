@@ -7,7 +7,7 @@ public class HeadlessIncLing {
 
 	private final int maxSolutionCount = Integer.MAX_VALUE; 
 	
-	private static final String baseFMPath = "model_original.xml"; 
+	private static final String baseFMPath = "model.xml"; 
 	private static final String baseSamplePath = "./Testdata/IncLing/";
 	private static final String basePath = "./Testdata/"; 
 	
