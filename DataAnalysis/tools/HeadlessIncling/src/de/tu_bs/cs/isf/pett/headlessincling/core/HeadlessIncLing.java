@@ -1,5 +1,8 @@
 package de.tu_bs.cs.isf.pett.headlessincling.core;
 
+import java.util.List;
+
+import de.ovgu.featureide.fm.core.analysis.cnf.LiteralSet;
 import de.ovgu.featureide.fm.core.job.monitor.ConsoleMonitor;
 import de.ovgu.featureide.fm.core.job.monitor.IMonitor;
 
@@ -19,11 +22,10 @@ public class HeadlessIncLing {
 			System.out.println("No suitable arguments provided for run. Provide the path to the base directory as single string");
 			new HeadlessIncLing(basePath, baseFMPath, baseSamplePath); 
 		}
-
 	}
 	
 	public HeadlessIncLing(String basePath, String baseFMPath, String baseSamplePath) {
-		IMonitor monitor = new ConsoleMonitor();
+		IMonitor<List<LiteralSet>> monitor = new ConsoleMonitor<List<LiteralSet>>();
 		PreservativeHandler handler = new PreservativeHandler(basePath, baseFMPath, baseSamplePath, maxSolutionCount, monitor); 
 		handler.execut();
 

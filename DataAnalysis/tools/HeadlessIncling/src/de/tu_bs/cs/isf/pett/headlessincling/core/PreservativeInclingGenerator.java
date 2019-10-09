@@ -2,24 +2,16 @@ package de.tu_bs.cs.isf.pett.headlessincling.core;
 
 import java.util.List;
 
-import org.prop4j.Node;
-import org.prop4j.explain.solvers.SatSolver;
-import org.prop4j.explain.solvers.SatSolverFactory;
-
 import de.ovgu.featureide.fm.core.analysis.cnf.CNF;
 import de.ovgu.featureide.fm.core.analysis.cnf.CNFCreator;
+import de.ovgu.featureide.fm.core.analysis.cnf.LiteralSet;
 import de.ovgu.featureide.fm.core.analysis.cnf.generator.configuration.PairWiseConfigurationGenerator;
-import de.ovgu.featureide.fm.core.base.FeatureUtils;
 import de.ovgu.featureide.fm.core.base.IFeatureModel;
-import de.ovgu.featureide.fm.core.editing.AdvancedNodeCreator;
-import de.ovgu.featureide.fm.core.editing.AdvancedNodeCreator.CNFType;
-import de.ovgu.featureide.fm.core.filter.AbstractFeatureFilter;
-import de.ovgu.featureide.fm.core.functional.Functional;
 import de.ovgu.featureide.fm.core.job.monitor.IMonitor;
 
 public class PreservativeInclingGenerator{
 	
-	private IMonitor monitor = null; 
+	private IMonitor<List<LiteralSet>> monitor = null; 
 	private PreservativeHandler handler = null; 
 	
 	private PairWiseConfigurationGenerator pairGen = null; 
@@ -48,7 +40,7 @@ public class PreservativeInclingGenerator{
 		return isReadcomplete;
 	}
 
-	public PreservativeInclingGenerator(IMonitor monitor, PreservativeHandler handler) {
+	public PreservativeInclingGenerator(IMonitor<List<LiteralSet>> monitor, PreservativeHandler handler) {
 		this.monitor = monitor; 
 		this.handler = handler; 
 	}
@@ -61,7 +53,7 @@ public class PreservativeInclingGenerator{
 //
 //		final Node createNodes = advancedNodeCreator.createNodes();
 //		satInstance = new SatInstance(createNodes, Functional.toList(FeatureUtils.getConcreteFeatureNames(MyUtils.getFeatureModel())));
-		
+		featureModel = MyUtils.getFeatureModel(); 
 		cnfCreator = new CNFCreator(featureModel); 
 		cnf = cnfCreator.createNodes(); 
 		pairGen = new PairWiseConfigurationGenerator(cnf, 300); 

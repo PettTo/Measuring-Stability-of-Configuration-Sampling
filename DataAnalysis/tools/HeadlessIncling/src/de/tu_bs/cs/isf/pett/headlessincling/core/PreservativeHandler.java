@@ -1,11 +1,10 @@
 package de.tu_bs.cs.isf.pett.headlessincling.core;
 
-import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.ovgu.featureide.fm.core.analysis.cnf.LiteralSet;
 import de.ovgu.featureide.fm.core.job.monitor.IMonitor;
 
 public class PreservativeHandler {
@@ -26,13 +25,13 @@ public class PreservativeHandler {
 	
 	private long timeOutBorder = 8 * 60 * 60 * 1000;
 	
-	IMonitor monitor; 
+	IMonitor<List<LiteralSet>> monitor; 
 	
 	private String modelString = ""; 
 	
 //	private List<String> fms = new ArrayList<>(); 
 	
-	public PreservativeHandler(String basePath, String modelString, String baseSamplePath, int maxSolutionCount, IMonitor monitor) {
+	public PreservativeHandler(String basePath, String modelString, String baseSamplePath, int maxSolutionCount, IMonitor<List<LiteralSet>> monitor) {
 		this.basePath = basePath; 
 		this.monitor = monitor; 
 		this.modelString = modelString; 
@@ -61,6 +60,7 @@ public class PreservativeHandler {
 //		long durationPreAna = 0; 
 //		for(String s : fms) {
 //			if(!s.startsWith("#")) {
+		
 				String fmPath = basePath + modelString; 
 				gen = new PreservativeInclingGenerator(monitor, this); 
 				System.out.println(fmPath);
@@ -72,7 +72,7 @@ public class PreservativeHandler {
 				List<List<String>> interConf = new ArrayList<>();
 				gen.constructGenerator(maxSolutionCount, interConf);
 				confList.clear();
-				confList.addAll(interConf);
+//				confList.addAll(interConf);
 //				durationPreAna = System.currentTimeMillis() - startPreAna;
 //				long time = System.currentTimeMillis();
 				constructThreads();
@@ -84,6 +84,7 @@ public class PreservativeHandler {
 //		sw.writeToFile("statistics");
 		}
 		catch(RuntimeException rEx) {
+			rEx.printStackTrace();
 			System.exit(1);
 		}
 	}
