@@ -34,6 +34,7 @@ hs_err_pid*
 /DataAnalysis/tools/StabilityCalculator/Example
 /DataAnalysis/tools/Kclause
 /DataAnalysis/tools/stability_evaluator_old
+/DataAnalysis/systems/*
 
 
 
@@ -4211,3 +4212,4 @@ hs_err_pid*
 /DataAnalysis/data/busybox_monthlySnapshot/samples/2010-05-02_14-17-07/incling/products_incling
 /DataAnalysis/data/busybox_monthlySnapshot/samples/2010-05-02_14-17-07/random/products_random
 
+/DataAnalysis/tools/HeadlessIncling/Testdata
