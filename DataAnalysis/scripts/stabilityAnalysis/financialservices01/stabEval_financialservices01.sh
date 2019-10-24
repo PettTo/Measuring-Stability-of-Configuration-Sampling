@@ -1,369 +1,257 @@
 #! /bin/bash
 
 # Go to main directory
-cd ..
+cd .. 
 PATH_CURRENT=$PWD
 PATH_BASE_MODEL=${PATH_CURRENT}/data/financialServices01/models/
+PATH_BASE_SAMPLE=${PATH_CURRENT}/data/financialServices01/samples/
 PATH_CSV=${PATH_CURRENT}/data/financialServices01/stability_csv
-#FILENAME_MODEL=model.xml
+PATH_RUNTIME=${PATH_CURRENT}/data/financialServices01/runtime_csv
+FILENAME_MODEL=model.xml
+
+PATH_JAR=${PATH_CURRENT}/tools/StabilityCalculator/Jar/StabilityCalculator.jar
+
+cd ${PATH_BASE_MODEL}
+array=($(ls -d */))
+#echo ${array[@]}
+## get length of $array -1
+len=${#array[@]}-1
+ 
+## start of similarity analysis
+for (( i=0; i<$len; i++ )); do 
+	yearOld=${array[$i]}
+	echo "YearNew$: "${yearOld};
+	yearNew=${array[$i+1]}
+	echo "YearNew$: "${yearNew};
+	
+	# Set up parameters for java execution
+	modelOld=${PATH_BASE_MODEL}${yearOld}${FILENAME_MODEL}
+	modelNew=${PATH_BASE_MODEL}${yearNew}${FILENAME_MODEL}
+	
+#### Analysis ROIC Metric
+	METRIC=roic
+	## Chvatal with ROIC
+	PROCEDURE=chvatal
+	FILENAME_CSV=chvatal.csv
+	FILE_RUNTIME=chvatal_runtime.csv
+	
+	FILENAME_SAMPLE_FOLDER=products_chvatal
+	sampleOld=${PATH_BASE_SAMPLE}${yearOld}${PROCEDURE}/${FILENAME_SAMPLE_FOLDER}
+	echo ${sampleOld}
+	sampleNew=${PATH_BASE_SAMPLE}${yearNew}${PROCEDURE}/${FILENAME_SAMPLE_FOLDER}
+	echo ${sampleNew}
+	
+	#measure start time 
+	start=`date +%s`
+	#execute metric
+	java -Xmx9g -jar ${PATH_JAR} ${METRIC} ${PATH_CSV} ${FILENAME_CSV} ${modelOld} ${sampleOld}/ ${modelNew} ${sampleNew}/ ${yearOld} ${yearNew}
+	# measure ned time and calculate runtime
+	end=`date +%s`
+	runtime=$((end-start))
+	echo ${yearOld}";"${yearNew}";"${runtime} >> ${PATH_RUNTIME}/${METRIC}/${FIlE_RUNTIME}
+	
+	## ICPL with ROIC
+	PROCEDURE=icpl
+	FILENAME_CSV=icpl.csv
+	FILE_RUNTIME=icpl_runtime.csv
+	
+	FILENAME_SAMPLE_FOLDER=products_icpl
+	sampleOld=${PATH_BASE_SAMPLE}${yearOld}${PROCEDURE}/${FILENAME_SAMPLE_FOLDER}
+	sampleNew=${PATH_BASE_SAMPLE}${yearNew}${PROCEDURE}/${FILENAME_SAMPLE_FOLDER}
+	
+	#measure start time 
+	start=`date +%s`
+	#execute metric
+	java -Xmx9g -jar ${PATH_JAR} ${METRIC} ${PATH_CSV} ${FILENAME_CSV} ${modelOld} ${sampleOld}/ ${modelNew} ${sampleNew}/ ${yearOld} ${yearNew}
+	# measure ned time and calculate runtime
+	end=`date +%s`
+	runtime=$((end-start))
+	echo ${yearOld}";"${yearNew}";"${runtime} >> ${PATH_RUNTIME}/${METRIC}/${FIlE_RUNTIME}
+	
+	## IncLing with ROIC
+	PROCEDURE=incling
+	FILENAME_CSV=incling.csv
+	FILE_RUNTIME=incling_runtime.csv
+	
+	FILENAME_SAMPLE_FOLDER=products_incling
+	sampleOld=${PATH_BASE_SAMPLE}${yearOld}${PROCEDURE}/${FILENAME_SAMPLE_FOLDER}
+	sampleNew=${PATH_BASE_SAMPLE}${yearNew}${PROCEDURE}/${FILENAME_SAMPLE_FOLDER}
+	
+	#measure start time 
+	start=`date +%s`
+	#execute metric
+	java -Xmx9g -jar ${PATH_JAR} ${METRIC} ${PATH_CSV} ${FILENAME_CSV} ${modelOld} ${sampleOld}/ ${modelNew} ${sampleNew}/ ${yearOld} ${yearNew}
+	# measure ned time and calculate runtime
+	end=`date +%s`
+	runtime=$((end-start))
+	echo ${yearOld}";"${yearNew}";"${runtime} >> ${PATH_RUNTIME}/${METRIC}/${FIlE_RUNTIME}
+	
+	## Random with ROIC
+	PROCEDURE=random
+	FILENAME_CSV=random.csv
+	FILE_RUNTIME=random_runtime.csv
+	
+#	FILENAME_SAMPLE_FOLDER=products_random
+	sampleOld=${PATH_BASE_SAMPLE}${yearOld}${PROCEDURE}/${FILENAME_SAMPLE_FOLDER}
+	sampleNew=${PATH_BASE_SAMPLE}${yearNew}${PROCEDURE}/${FILENAME_SAMPLE_FOLDER}
+	
+	#measure start time 
+	start=`date +%s`
+	#execute metric
+	java -Xmx9g -jar ${PATH_JAR} ${METRIC} ${PATH_CSV} ${FILENAME_CSV} ${modelOld} ${sampleOld}/ ${modelNew} ${sampleNew}/ ${yearOld} ${yearNew}
+	# measure ned time and calculate runtime
+	end=`date +%s`
+	runtime=$((end-start))
+	echo ${yearOld}";"${yearNew}";"${runtime} >> ${PATH_RUNTIME}/${METRIC}/${FIlE_RUNTIME}
+	
+#### Analysis MSOC Metric
+	METRIC=msoc
+	## Chvatal with msoc
+	PROCEDURE=chvatal
+	FILENAME_CSV=chvatal.csv
+	FILE_RUNTIME=chvatal_runtime.csv
+	
+	FILENAME_SAMPLE_FOLDER=products_chvatal
+	sampleOld=${PATH_BASE_SAMPLE}${yearOld}${PROCEDURE}/${FILENAME_SAMPLE_FOLDER}
+	sampleNew=${PATH_BASE_SAMPLE}${yearNew}${PROCEDURE}/${FILENAME_SAMPLE_FOLDER}
+	
+	#measure start time 
+	start=`date +%s`
+	#execute metric
+	java -Xmx9g -jar ${PATH_JAR} ${METRIC} ${PATH_CSV} ${FILENAME_CSV} ${modelOld} ${sampleOld}/ ${modelNew} ${sampleNew}/ ${yearOld} ${yearNew}
+	# measure ned time and calculate runtime
+	end=`date +%s`
+	runtime=$((end-start))
+	echo ${yearOld}";"${yearNew}";"${runtime} >> ${PATH_RUNTIME}/${METRIC}/${FIlE_RUNTIME}
+	
+	## ICPL with msoc
+	PROCEDURE=icpl
+	FILENAME_CSV=icpl.csv
+	FILE_RUNTIME=icpl_runtime.csv
+	
+	FILENAME_SAMPLE_FOLDER=products_icpl
+	sampleOld=${PATH_BASE_SAMPLE}${yearOld}${PROCEDURE}/${FILENAME_SAMPLE_FOLDER}
+	sampleNew=${PATH_BASE_SAMPLE}${yearNew}${PROCEDURE}/${FILENAME_SAMPLE_FOLDER}
+	
+	#measure start time 
+	start=`date +%s`
+	#execute metric
+	java -Xmx9g -jar ${PATH_JAR} ${METRIC} ${PATH_CSV} ${FILENAME_CSV} ${modelOld} ${sampleOld}/ ${modelNew} ${sampleNew}/ ${yearOld} ${yearNew}
+	# measure ned time and calculate runtime
+	end=`date +%s`
+	runtime=$((end-start))
+	echo ${yearOld}";"${yearNew}";"${runtime} >> ${PATH_RUNTIME}/${METRIC}/${FIlE_RUNTIME}
+	
+	## IncLing with msoc
+	PROCEDURE=incling
+	FILENAME_CSV=incling.csv
+	FILE_RUNTIME=incling_runtime.csv
+	
+	FILENAME_SAMPLE_FOLDER=products_incling
+	sampleOld=${PATH_BASE_SAMPLE}${yearOld}${PROCEDURE}/${FILENAME_SAMPLE_FOLDER}
+	sampleNew=${PATH_BASE_SAMPLE}${yearNew}${PROCEDURE}/${FILENAME_SAMPLE_FOLDER}
+	
+	#measure start time 
+	start=`date +%s`
+	#execute metric
+	java -Xmx9g -jar ${PATH_JAR} ${METRIC} ${PATH_CSV} ${FILENAME_CSV} ${modelOld} ${sampleOld}/ ${modelNew} ${sampleNew}/ ${yearOld} ${yearNew}
+	# measure ned time and calculate runtime
+	end=`date +%s`
+	runtime=$((end-start))
+	echo ${yearOld}";"${yearNew}";"${runtime} >> ${PATH_RUNTIME}/${METRIC}/${FIlE_RUNTIME}
+	
+	## Random with msoc
+	PROCEDURE=random
+	FILENAME_CSV=random.csv
+	FILE_RUNTIME=icpl_runtime.csv
+	
+	FILENAME_SAMPLE_FOLDER=products_random
+	sampleOld=${PATH_BASE_SAMPLE}${yearOld}${PROCEDURE}/${FILENAME_SAMPLE_FOLDER}
+	sampleNew=${PATH_BASE_SAMPLE}${yearNew}${PROCEDURE}/${FILENAME_SAMPLE_FOLDER}
+	
+	#measure start time 
+	start=`date +%s`
+	#execute metric
+	java -Xmx9g -jar ${PATH_JAR} ${METRIC} ${PATH_CSV} ${FILENAME_CSV} ${modelOld} ${sampleOld}/ ${modelNew} ${sampleNew}/ ${yearOld} ${yearNew}
+	# measure ned time and calculate runtime
+	end=`date +%s`
+	runtime=$((end-start))
+	echo ${yearOld}";"${yearNew}";"${runtime} >> ${PATH_RUNTIME}/${METRIC}/${FIlE_RUNTIME}
+	
+#### Analysis ICST Metric
+	METRIC=icst
+	## Chvatal with ICST
+	PROCEDURE=chvatal
+	FILENAME_CSV=chvatal.csv
+	FILE_RUNTIME=chvatal_runtime.csv
+	
+	FILENAME_SAMPLE_FOLDER=products_chvatal
+	sampleOld=${PATH_BASE_SAMPLE}${yearOld}${PROCEDURE}/${FILENAME_SAMPLE_FOLDER}
+	sampleNew=${PATH_BASE_SAMPLE}${yearNew}${PROCEDURE}/${FILENAME_SAMPLE_FOLDER}
+	
+	#measure start time 
+	start=`date +%s`
+	#execute metric
+	java -Xmx9g -jar ${PATH_JAR} ${METRIC} ${PATH_CSV} ${FILENAME_CSV} ${modelOld} ${sampleOld}/ ${modelNew} ${sampleNew}/ ${yearOld} ${yearNew}
+	# measure ned time and calculate runtime
+	end=`date +%s`
+	runtime=$((end-start))
+	echo ${yearOld}";"${yearNew}";"${runtime} >> ${PATH_RUNTIME}/${METRIC}/${FIlE_RUNTIME}
+	
+	## ICPL with icst
+	PROCEDURE=icpl
+	FILENAME_CSV=icpl.csv
+	FILE_RUNTIME=icpl_runtime.csv
+	
+	FILENAME_SAMPLE_FOLDER=products_icpl
+	sampleOld=${PATH_BASE_SAMPLE}${yearOld}${PROCEDURE}/${FILENAME_SAMPLE_FOLDER}
+	sampleNew=${PATH_BASE_SAMPLE}${yearNew}${PROCEDURE}/${FILENAME_SAMPLE_FOLDER}
+	
+	#measure start time 
+	start=`date +%s`
+	#execute metric
+	java -Xmx9g -jar ${PATH_JAR} ${METRIC} ${PATH_CSV} ${FILENAME_CSV} ${modelOld} ${sampleOld}/ ${modelNew} ${sampleNew}/ ${yearOld} ${yearNew}
+	# measure ned time and calculate runtime
+	end=`date +%s`
+	runtime=$((end-start))
+	echo ${yearOld}";"${yearNew}";"${runtime} >> ${PATH_RUNTIME}/${METRIC}/${FIlE_RUNTIME}
+	
+	## IncLing with icst
+	PROCEDURE=incling
+	FILENAME_CSV=incling.csv
+	FILE_RUNTIME=incling_runtime.csv
+	
+	FILENAME_SAMPLE_FOLDER=products_incling
+	sampleOld=${PATH_BASE_SAMPLE}${yearOld}${PROCEDURE}/${FILENAME_SAMPLE_FOLDER}
+	sampleNew=${PATH_BASE_SAMPLE}${yearNew}${PROCEDURE}/${FILENAME_SAMPLE_FOLDER}
+	
+	#measure start time 
+	start=`date +%s`
+	#execute metric
+	java -Xmx9g -jar ${PATH_JAR} ${METRIC} ${PATH_CSV} ${FILENAME_CSV} ${modelOld} ${sampleOld}/ ${modelNew} ${sampleNew}/ ${yearOld} ${yearNew}
+	# measure ned time and calculate runtime
+	end=`date +%s`
+	runtime=$((end-start))
+	echo ${yearOld}";"${yearNew}";"${runtime} >> ${PATH_RUNTIME}/${METRIC}/${FIlE_RUNTIME}
+	
+	## Random with icst
+	PROCEDURE=random
+	FILENAME_CSV=random.csv
+	FILE_RUNTIME=incling_runtime.csv
+	
+	FILENAME_SAMPLE_FOLDER=products_random
+	sampleOld=${PATH_BASE_SAMPLE}${yearOld}${PROCEDURE}/${FILENAME_SAMPLE_FOLDER}
+	sampleNew=${PATH_BASE_SAMPLE}${yearNew}${PROCEDURE}/${FILENAME_SAMPLE_FOLDER}
+	
+	#measure start time 
+	start=`date +%s`
+	#execute metric
+	java -Xmx9g -jar ${PATH_JAR} ${METRIC} ${PATH_CSV} ${FILENAME_CSV} ${modelOld} ${sampleOld}/ ${modelNew} ${sampleNew}/ ${yearOld} ${yearNew}
+	# measure ned time and calculate runtime
+	end=`date +%s`
+	runtime=$((end-start))
+	echo ${yearOld}";"${yearNew}";"${runtime} >> ${PATH_RUNTIME}/${METRIC}/${FIlE_RUNTIME}
+done
 
-########## calculate stability of chvatal
-PATH_BASE_SAMPLE=${PATH_CURRENT}/data/financialServices01/samples/
-FILENAME_CSV=chvatal2.csv
-FILENAME_INTERFOLDER=Chvatal
-FILENAME_SAMPLE_FOLDER=products_Chvatal2
-###time step 1
-prevFolder=model00001.xml
-newFolder=model00002.xml
 
-prevVersion=FinancialServices_2017-05-22
-newVersion=FinancialServices_2017-09-28
-#Execute
-java -Xmx9g -jar ./tools/stability_evaluator/StabilityCalculator_icst.jar ${PATH_CSV}/${FILENAME_CSV} ${PATH_BASE_MODEL}/${prevFolder} ${PATH_BASE_SAMPLE}/${prevVersion}/${FILENAME_INTERFOLDER}/${FILENAME_SAMPLE_FOLDER}/ ${PATH_BASE_MODEL}/${newFolder} ${PATH_BASE_SAMPLE}/${newVersion}/${FILENAME_INTERFOLDER}/${FILENAME_SAMPLE_FOLDER}/ ${prevFolder} ${newFolder}
 
-###time step 2
-prevFolder=model00002.xml
-newFolder=model00003.xml
-
-prevVersion=FinancialServices_2017-09-28
-newVersion=FinancialServices_2017-10-20
-#Execute
-java -Xmx9g -jar ./tools/stability_evaluator/StabilityCalculator_icst.jar ${PATH_CSV}/${FILENAME_CSV} ${PATH_BASE_MODEL}/${prevFolder} ${PATH_BASE_SAMPLE}/${prevVersion}/${FILENAME_INTERFOLDER}/${FILENAME_SAMPLE_FOLDER}/ ${PATH_BASE_MODEL}/${newFolder} ${PATH_BASE_SAMPLE}/${newVersion}/${FILENAME_INTERFOLDER}/${FILENAME_SAMPLE_FOLDER}/ ${prevFolder} ${newFolder}
-
-###time step 3
-prevFolder=model00003.xml
-newFolder=model00004.xml
-
-prevVersion=FinancialServices_2017-10-20
-newVersion=FinancialServices_2017-11-20
-#Execute
-java -Xmx9g -jar ./tools/stability_evaluator/StabilityCalculator_icst.jar ${PATH_CSV}/${FILENAME_CSV} ${PATH_BASE_MODEL}/${prevFolder} ${PATH_BASE_SAMPLE}/${prevVersion}/${FILENAME_INTERFOLDER}/${FILENAME_SAMPLE_FOLDER}/ ${PATH_BASE_MODEL}/${newFolder} ${PATH_BASE_SAMPLE}/${newVersion}/${FILENAME_INTERFOLDER}/${FILENAME_SAMPLE_FOLDER}/ ${prevFolder} ${newFolder}
-
-###time step 4
-prevFolder=model00004.xml
-newFolder=model00005.xml
-
-prevVersion=FinancialServices_2017-11-20
-newVersion=FinancialServices_2017-12-22
-#Execute
-java -Xmx9g -jar ./tools/stability_evaluator/StabilityCalculator_icst.jar ${PATH_CSV}/${FILENAME_CSV} ${PATH_BASE_MODEL}/${prevFolder} ${PATH_BASE_SAMPLE}/${prevVersion}/${FILENAME_INTERFOLDER}/${FILENAME_SAMPLE_FOLDER}/ ${PATH_BASE_MODEL}/${newFolder} ${PATH_BASE_SAMPLE}/${newVersion}/${FILENAME_INTERFOLDER}/${FILENAME_SAMPLE_FOLDER}/ ${prevFolder} ${newFolder}
-
-###time step 5
-prevFolder=model00005.xml
-newFolder=model00006.xml
-
-prevVersion=FinancialServices_2017-12-22
-newVersion=FinancialServices_2018-01-23
-#Execute
-java -Xmx9g -jar ./tools/stability_evaluator/StabilityCalculator_icst.jar ${PATH_CSV}/${FILENAME_CSV} ${PATH_BASE_MODEL}/${prevFolder} ${PATH_BASE_SAMPLE}/${prevVersion}/${FILENAME_INTERFOLDER}/${FILENAME_SAMPLE_FOLDER}/ ${PATH_BASE_MODEL}/${newFolder} ${PATH_BASE_SAMPLE}/${newVersion}/${FILENAME_INTERFOLDER}/${FILENAME_SAMPLE_FOLDER}/ ${prevFolder} ${newFolder}
-
-###time step 6
-prevFolder=model00006.xml
-newFolder=model00007.xml
-
-prevVersion=FinancialServices_2018-01-23
-newVersion=FinancialServices_2018-02-20
-#Execute
-java -Xmx9g -jar ./tools/stability_evaluator/StabilityCalculator_icst.jar ${PATH_CSV}/${FILENAME_CSV} ${PATH_BASE_MODEL}/${prevFolder} ${PATH_BASE_SAMPLE}/${prevVersion}/${FILENAME_INTERFOLDER}/${FILENAME_SAMPLE_FOLDER}/ ${PATH_BASE_MODEL}/${newFolder} ${PATH_BASE_SAMPLE}/${newVersion}/${FILENAME_INTERFOLDER}/${FILENAME_SAMPLE_FOLDER}/ ${prevFolder} ${newFolder}
-
-###time step 7
-prevFolder=model00007.xml
-newFolder=model00008.xml
-
-prevVersion=FinancialServices_2018-02-20
-newVersion=FinancialServices_2018-03-26
-#Execute
-java -Xmx9g -jar ./tools/stability_evaluator/StabilityCalculator_icst.jar ${PATH_CSV}/${FILENAME_CSV} ${PATH_BASE_MODEL}/${prevFolder} ${PATH_BASE_SAMPLE}/${prevVersion}/${FILENAME_INTERFOLDER}/${FILENAME_SAMPLE_FOLDER}/ ${PATH_BASE_MODEL}/${newFolder} ${PATH_BASE_SAMPLE}/${newVersion}/${FILENAME_INTERFOLDER}/${FILENAME_SAMPLE_FOLDER}/ ${prevFolder} ${newFolder}
-
-###time step 8
-prevFolder=model00008.xml
-newFolder=model00009.xml
-
-prevVersion=FinancialServices_2018-03-26
-newVersion=FinancialServices_2018-04-23
-#Execute
-java -Xmx9g -jar ./tools/stability_evaluator/StabilityCalculator_icst.jar ${PATH_CSV}/${FILENAME_CSV} ${PATH_BASE_MODEL}/${prevFolder} ${PATH_BASE_SAMPLE}/${prevVersion}/${FILENAME_INTERFOLDER}/${FILENAME_SAMPLE_FOLDER}/ ${PATH_BASE_MODEL}/${newFolder} ${PATH_BASE_SAMPLE}/${newVersion}/${FILENAME_INTERFOLDER}/${FILENAME_SAMPLE_FOLDER}/ ${prevFolder} ${newFolder}
-
-###time step 9
-prevFolder=model00009.xml
-newFolder=model00010.xml
-
-prevVersion=FinancialServices_2018-04-23
-newVersion=FinancialServices_2018-05-09
-#Execute
-java -Xmx9g -jar ./tools/stability_evaluator/StabilityCalculator_icst.jar ${PATH_CSV}/${FILENAME_CSV} ${PATH_BASE_MODEL}/${prevFolder} ${PATH_BASE_SAMPLE}/${prevVersion}/${FILENAME_INTERFOLDER}/${FILENAME_SAMPLE_FOLDER}/ ${PATH_BASE_MODEL}/${newFolder} ${PATH_BASE_SAMPLE}/${newVersion}/${FILENAME_INTERFOLDER}/${FILENAME_SAMPLE_FOLDER}/ ${prevFolder} ${newFolder}
-
-
-
-
-
-
-########## calculate stability of icpl
-PATH_BASE_SAMPLE=${PATH_CURRENT}/data/financialServices01/samples/
-FILENAME_CSV=icpl2.csv
-FILENAME_INTERFOLDER=ICPL
-FILENAME_SAMPLE_FOLDER=products_ICPL2
-###time step 1
-prevFolder=model00001.xml
-newFolder=model00002.xml
-
-prevVersion=FinancialServices_2017-05-22
-newVersion=FinancialServices_2017-09-28
-#Execute
-java -Xmx9g -jar ./tools/stability_evaluator/StabilityCalculator_icst.jar ${PATH_CSV}/${FILENAME_CSV} ${PATH_BASE_MODEL}/${prevFolder} ${PATH_BASE_SAMPLE}/${prevVersion}/${FILENAME_INTERFOLDER}/${FILENAME_SAMPLE_FOLDER}/ ${PATH_BASE_MODEL}/${newFolder} ${PATH_BASE_SAMPLE}/${newVersion}/${FILENAME_INTERFOLDER}/${FILENAME_SAMPLE_FOLDER}/ ${prevFolder} ${newFolder}
-
-###time step 2
-prevFolder=model00002.xml
-newFolder=model00003.xml
-
-prevVersion=FinancialServices_2017-09-28
-newVersion=FinancialServices_2017-10-20
-#Execute
-java -Xmx9g -jar ./tools/stability_evaluator/StabilityCalculator_icst.jar ${PATH_CSV}/${FILENAME_CSV} ${PATH_BASE_MODEL}/${prevFolder} ${PATH_BASE_SAMPLE}/${prevVersion}/${FILENAME_INTERFOLDER}/${FILENAME_SAMPLE_FOLDER}/ ${PATH_BASE_MODEL}/${newFolder} ${PATH_BASE_SAMPLE}/${newVersion}/${FILENAME_INTERFOLDER}/${FILENAME_SAMPLE_FOLDER}/ ${prevFolder} ${newFolder}
-
-###time step 3
-prevFolder=model00003.xml
-newFolder=model00004.xml
-
-prevVersion=FinancialServices_2017-10-20
-newVersion=FinancialServices_2017-11-20
-#Execute
-java -Xmx9g -jar ./tools/stability_evaluator/StabilityCalculator_icst.jar ${PATH_CSV}/${FILENAME_CSV} ${PATH_BASE_MODEL}/${prevFolder} ${PATH_BASE_SAMPLE}/${prevVersion}/${FILENAME_INTERFOLDER}/${FILENAME_SAMPLE_FOLDER}/ ${PATH_BASE_MODEL}/${newFolder} ${PATH_BASE_SAMPLE}/${newVersion}/${FILENAME_INTERFOLDER}/${FILENAME_SAMPLE_FOLDER}/ ${prevFolder} ${newFolder}
-
-###time step 4
-prevFolder=model00004.xml
-newFolder=model00005.xml
-
-prevVersion=FinancialServices_2017-11-20
-newVersion=FinancialServices_2017-12-22
-#Execute
-java -Xmx9g -jar ./tools/stability_evaluator/StabilityCalculator_icst.jar ${PATH_CSV}/${FILENAME_CSV} ${PATH_BASE_MODEL}/${prevFolder} ${PATH_BASE_SAMPLE}/${prevVersion}/${FILENAME_INTERFOLDER}/${FILENAME_SAMPLE_FOLDER}/ ${PATH_BASE_MODEL}/${newFolder} ${PATH_BASE_SAMPLE}/${newVersion}/${FILENAME_INTERFOLDER}/${FILENAME_SAMPLE_FOLDER}/ ${prevFolder} ${newFolder}
-
-###time step 5
-prevFolder=model00005.xml
-newFolder=model00006.xml
-
-prevVersion=FinancialServices_2017-12-22
-newVersion=FinancialServices_2018-01-23
-#Execute
-java -Xmx9g -jar ./tools/stability_evaluator/StabilityCalculator_icst.jar ${PATH_CSV}/${FILENAME_CSV} ${PATH_BASE_MODEL}/${prevFolder} ${PATH_BASE_SAMPLE}/${prevVersion}/${FILENAME_INTERFOLDER}/${FILENAME_SAMPLE_FOLDER}/ ${PATH_BASE_MODEL}/${newFolder} ${PATH_BASE_SAMPLE}/${newVersion}/${FILENAME_INTERFOLDER}/${FILENAME_SAMPLE_FOLDER}/ ${prevFolder} ${newFolder}
-
-###time step 6
-prevFolder=model00006.xml
-newFolder=model00007.xml
-
-prevVersion=FinancialServices_2018-01-23
-newVersion=FinancialServices_2018-02-20
-#Execute
-java -Xmx9g -jar ./tools/stability_evaluator/StabilityCalculator_icst.jar ${PATH_CSV}/${FILENAME_CSV} ${PATH_BASE_MODEL}/${prevFolder} ${PATH_BASE_SAMPLE}/${prevVersion}/${FILENAME_INTERFOLDER}/${FILENAME_SAMPLE_FOLDER}/ ${PATH_BASE_MODEL}/${newFolder} ${PATH_BASE_SAMPLE}/${newVersion}/${FILENAME_INTERFOLDER}/${FILENAME_SAMPLE_FOLDER}/ ${prevFolder} ${newFolder}
-
-###time step 7
-prevFolder=model00007.xml
-newFolder=model00008.xml
-
-prevVersion=FinancialServices_2018-02-20
-newVersion=FinancialServices_2018-03-26
-#Execute
-java -Xmx9g -jar ./tools/stability_evaluator/StabilityCalculator_icst.jar ${PATH_CSV}/${FILENAME_CSV} ${PATH_BASE_MODEL}/${prevFolder} ${PATH_BASE_SAMPLE}/${prevVersion}/${FILENAME_INTERFOLDER}/${FILENAME_SAMPLE_FOLDER}/ ${PATH_BASE_MODEL}/${newFolder} ${PATH_BASE_SAMPLE}/${newVersion}/${FILENAME_INTERFOLDER}/${FILENAME_SAMPLE_FOLDER}/ ${prevFolder} ${newFolder}
-
-###time step 8
-prevFolder=model00008.xml
-newFolder=model00009.xml
-
-prevVersion=FinancialServices_2018-03-26
-newVersion=FinancialServices_2018-04-23
-#Execute
-java -Xmx9g -jar ./tools/stability_evaluator/StabilityCalculator_icst.jar ${PATH_CSV}/${FILENAME_CSV} ${PATH_BASE_MODEL}/${prevFolder} ${PATH_BASE_SAMPLE}/${prevVersion}/${FILENAME_INTERFOLDER}/${FILENAME_SAMPLE_FOLDER}/ ${PATH_BASE_MODEL}/${newFolder} ${PATH_BASE_SAMPLE}/${newVersion}/${FILENAME_INTERFOLDER}/${FILENAME_SAMPLE_FOLDER}/ ${prevFolder} ${newFolder}
-
-###time step 9
-prevFolder=model00009.xml
-newFolder=model00010.xml
-
-prevVersion=FinancialServices_2018-04-23
-newVersion=FinancialServices_2018-05-09
-#Execute
-java -Xmx9g -jar ./tools/stability_evaluator/StabilityCalculator_icst.jar ${PATH_CSV}/${FILENAME_CSV} ${PATH_BASE_MODEL}/${prevFolder} ${PATH_BASE_SAMPLE}/${prevVersion}/${FILENAME_INTERFOLDER}/${FILENAME_SAMPLE_FOLDER}/ ${PATH_BASE_MODEL}/${newFolder} ${PATH_BASE_SAMPLE}/${newVersion}/${FILENAME_INTERFOLDER}/${FILENAME_SAMPLE_FOLDER}/ ${prevFolder} ${newFolder}
-
-
-
-
-
-
-
-########## calculate stability of IncLing
-PATH_BASE_SAMPLE=${PATH_CURRENT}/data/financialServices01/samples/
-FILENAME_CSV=incling2.csv
-FILENAME_INTERFOLDER=IncLing
-FILENAME_SAMPLE_FOLDER=products_incling2
-###time step 1
-prevFolder=model00001.xml
-newFolder=model00002.xml
-
-prevVersion=FinancialServices_2017-05-22
-newVersion=FinancialServices_2017-09-28
-#Execute
-java -Xmx9g -jar ./tools/stability_evaluator/StabilityCalculator_icst.jar ${PATH_CSV}/${FILENAME_CSV} ${PATH_BASE_MODEL}/${prevFolder} ${PATH_BASE_SAMPLE}/${prevVersion}/${FILENAME_INTERFOLDER}/${FILENAME_SAMPLE_FOLDER}/ ${PATH_BASE_MODEL}/${newFolder} ${PATH_BASE_SAMPLE}/${newVersion}/${FILENAME_INTERFOLDER}/${FILENAME_SAMPLE_FOLDER}/ ${prevFolder} ${newFolder}
-
-###time step 2
-prevFolder=model00002.xml
-newFolder=model00003.xml
-
-prevVersion=FinancialServices_2017-09-28
-newVersion=FinancialServices_2017-10-20
-#Execute
-java -Xmx9g -jar ./tools/stability_evaluator/StabilityCalculator_icst.jar ${PATH_CSV}/${FILENAME_CSV} ${PATH_BASE_MODEL}/${prevFolder} ${PATH_BASE_SAMPLE}/${prevVersion}/${FILENAME_INTERFOLDER}/${FILENAME_SAMPLE_FOLDER}/ ${PATH_BASE_MODEL}/${newFolder} ${PATH_BASE_SAMPLE}/${newVersion}/${FILENAME_INTERFOLDER}/${FILENAME_SAMPLE_FOLDER}/ ${prevFolder} ${newFolder}
-
-###time step 3
-prevFolder=model00003.xml
-newFolder=model00004.xml
-
-prevVersion=FinancialServices_2017-10-20
-newVersion=FinancialServices_2017-11-20
-#Execute
-java -Xmx9g -jar ./tools/stability_evaluator/StabilityCalculator_icst.jar ${PATH_CSV}/${FILENAME_CSV} ${PATH_BASE_MODEL}/${prevFolder} ${PATH_BASE_SAMPLE}/${prevVersion}/${FILENAME_INTERFOLDER}/${FILENAME_SAMPLE_FOLDER}/ ${PATH_BASE_MODEL}/${newFolder} ${PATH_BASE_SAMPLE}/${newVersion}/${FILENAME_INTERFOLDER}/${FILENAME_SAMPLE_FOLDER}/ ${prevFolder} ${newFolder}
-
-###time step 4
-prevFolder=model00004.xml
-newFolder=model00005.xml
-
-prevVersion=FinancialServices_2017-11-20
-newVersion=FinancialServices_2017-12-22
-#Execute
-java -Xmx9g -jar ./tools/stability_evaluator/StabilityCalculator_icst.jar ${PATH_CSV}/${FILENAME_CSV} ${PATH_BASE_MODEL}/${prevFolder} ${PATH_BASE_SAMPLE}/${prevVersion}/${FILENAME_INTERFOLDER}/${FILENAME_SAMPLE_FOLDER}/ ${PATH_BASE_MODEL}/${newFolder} ${PATH_BASE_SAMPLE}/${newVersion}/${FILENAME_INTERFOLDER}/${FILENAME_SAMPLE_FOLDER}/ ${prevFolder} ${newFolder}
-
-###time step 5
-prevFolder=model00005.xml
-newFolder=model00006.xml
-
-prevVersion=FinancialServices_2017-12-22
-newVersion=FinancialServices_2018-01-23
-#Execute
-java -Xmx9g -jar ./tools/stability_evaluator/StabilityCalculator_icst.jar ${PATH_CSV}/${FILENAME_CSV} ${PATH_BASE_MODEL}/${prevFolder} ${PATH_BASE_SAMPLE}/${prevVersion}/${FILENAME_INTERFOLDER}/${FILENAME_SAMPLE_FOLDER}/ ${PATH_BASE_MODEL}/${newFolder} ${PATH_BASE_SAMPLE}/${newVersion}/${FILENAME_INTERFOLDER}/${FILENAME_SAMPLE_FOLDER}/ ${prevFolder} ${newFolder}
-
-###time step 6
-prevFolder=model00006.xml
-newFolder=model00007.xml
-
-prevVersion=FinancialServices_2018-01-23
-newVersion=FinancialServices_2018-02-20
-#Execute
-java -Xmx9g -jar ./tools/stability_evaluator/StabilityCalculator_icst.jar ${PATH_CSV}/${FILENAME_CSV} ${PATH_BASE_MODEL}/${prevFolder} ${PATH_BASE_SAMPLE}/${prevVersion}/${FILENAME_INTERFOLDER}/${FILENAME_SAMPLE_FOLDER}/ ${PATH_BASE_MODEL}/${newFolder} ${PATH_BASE_SAMPLE}/${newVersion}/${FILENAME_INTERFOLDER}/${FILENAME_SAMPLE_FOLDER}/ ${prevFolder} ${newFolder}
-
-###time step 7
-prevFolder=model00007.xml
-newFolder=model00008.xml
-
-prevVersion=FinancialServices_2018-02-20
-newVersion=FinancialServices_2018-03-26
-#Execute
-java -Xmx9g -jar ./tools/stability_evaluator/StabilityCalculator_icst.jar ${PATH_CSV}/${FILENAME_CSV} ${PATH_BASE_MODEL}/${prevFolder} ${PATH_BASE_SAMPLE}/${prevVersion}/${FILENAME_INTERFOLDER}/${FILENAME_SAMPLE_FOLDER}/ ${PATH_BASE_MODEL}/${newFolder} ${PATH_BASE_SAMPLE}/${newVersion}/${FILENAME_INTERFOLDER}/${FILENAME_SAMPLE_FOLDER}/ ${prevFolder} ${newFolder}
-
-###time step 8
-prevFolder=model00008.xml
-newFolder=model00009.xml
-
-prevVersion=FinancialServices_2018-03-26
-newVersion=FinancialServices_2018-04-23
-#Execute
-java -Xmx9g -jar ./tools/stability_evaluator/StabilityCalculator_icst.jar ${PATH_CSV}/${FILENAME_CSV} ${PATH_BASE_MODEL}/${prevFolder} ${PATH_BASE_SAMPLE}/${prevVersion}/${FILENAME_INTERFOLDER}/${FILENAME_SAMPLE_FOLDER}/ ${PATH_BASE_MODEL}/${newFolder} ${PATH_BASE_SAMPLE}/${newVersion}/${FILENAME_INTERFOLDER}/${FILENAME_SAMPLE_FOLDER}/ ${prevFolder} ${newFolder}
-
-###time step 9
-prevFolder=model00009.xml
-newFolder=model00010.xml
-
-prevVersion=FinancialServices_2018-04-23
-newVersion=FinancialServices_2018-05-09
-#Execute
-java -Xmx9g -jar ./tools/stability_evaluator/StabilityCalculator_icst.jar ${PATH_CSV}/${FILENAME_CSV} ${PATH_BASE_MODEL}/${prevFolder} ${PATH_BASE_SAMPLE}/${prevVersion}/${FILENAME_INTERFOLDER}/${FILENAME_SAMPLE_FOLDER}/ ${PATH_BASE_MODEL}/${newFolder} ${PATH_BASE_SAMPLE}/${newVersion}/${FILENAME_INTERFOLDER}/${FILENAME_SAMPLE_FOLDER}/ ${prevFolder} ${newFolder}
-
-
-
-
-
-
-
-########## calculate stability of Random
-PATH_BASE_SAMPLE=${PATH_CURRENT}/data/financialServices01/samples/
-FILENAME_CSV=random2.csv
-FILENAME_INTERFOLDER=Random
-FILENAME_SAMPLE_FOLDER=products_Rand2
-###time step 1
-prevFolder=model00001.xml
-newFolder=model00002.xml
-
-prevVersion=FinancialServices_2017-05-22
-newVersion=FinancialServices_2017-09-28
-#Execute
-java -Xmx9g -jar ./tools/stability_evaluator/StabilityCalculator_icst.jar ${PATH_CSV}/${FILENAME_CSV} ${PATH_BASE_MODEL}/${prevFolder} ${PATH_BASE_SAMPLE}/${prevVersion}/${FILENAME_INTERFOLDER}/${FILENAME_SAMPLE_FOLDER}/ ${PATH_BASE_MODEL}/${newFolder} ${PATH_BASE_SAMPLE}/${newVersion}/${FILENAME_INTERFOLDER}/${FILENAME_SAMPLE_FOLDER}/ ${prevFolder} ${newFolder}
-
-###time step 2
-prevFolder=model00002.xml
-newFolder=model00003.xml
-
-prevVersion=FinancialServices_2017-09-28
-newVersion=FinancialServices_2017-10-20
-#Execute
-java -Xmx9g -jar ./tools/stability_evaluator/StabilityCalculator_icst.jar ${PATH_CSV}/${FILENAME_CSV} ${PATH_BASE_MODEL}/${prevFolder} ${PATH_BASE_SAMPLE}/${prevVersion}/${FILENAME_INTERFOLDER}/${FILENAME_SAMPLE_FOLDER}/ ${PATH_BASE_MODEL}/${newFolder} ${PATH_BASE_SAMPLE}/${newVersion}/${FILENAME_INTERFOLDER}/${FILENAME_SAMPLE_FOLDER}/ ${prevFolder} ${newFolder}
-
-###time step 3
-prevFolder=model00003.xml
-newFolder=model00004.xml
-
-prevVersion=FinancialServices_2017-10-20
-newVersion=FinancialServices_2017-11-20
-#Execute
-java -Xmx9g -jar ./tools/stability_evaluator/StabilityCalculator_icst.jar ${PATH_CSV}/${FILENAME_CSV} ${PATH_BASE_MODEL}/${prevFolder} ${PATH_BASE_SAMPLE}/${prevVersion}/${FILENAME_INTERFOLDER}/${FILENAME_SAMPLE_FOLDER}/ ${PATH_BASE_MODEL}/${newFolder} ${PATH_BASE_SAMPLE}/${newVersion}/${FILENAME_INTERFOLDER}/${FILENAME_SAMPLE_FOLDER}/ ${prevFolder} ${newFolder}
-
-###time step 4
-prevFolder=model00004.xml
-newFolder=model00005.xml
-
-prevVersion=FinancialServices_2017-11-20
-newVersion=FinancialServices_2017-12-22
-#Execute
-java -Xmx9g -jar ./tools/stability_evaluator/StabilityCalculator_icst.jar ${PATH_CSV}/${FILENAME_CSV} ${PATH_BASE_MODEL}/${prevFolder} ${PATH_BASE_SAMPLE}/${prevVersion}/${FILENAME_INTERFOLDER}/${FILENAME_SAMPLE_FOLDER}/ ${PATH_BASE_MODEL}/${newFolder} ${PATH_BASE_SAMPLE}/${newVersion}/${FILENAME_INTERFOLDER}/${FILENAME_SAMPLE_FOLDER}/ ${prevFolder} ${newFolder}
-
-###time step 5
-prevFolder=model00005.xml
-newFolder=model00006.xml
-
-prevVersion=FinancialServices_2017-12-22
-newVersion=FinancialServices_2018-01-23
-#Execute
-java -Xmx9g -jar ./tools/stability_evaluator/StabilityCalculator_icst.jar ${PATH_CSV}/${FILENAME_CSV} ${PATH_BASE_MODEL}/${prevFolder} ${PATH_BASE_SAMPLE}/${prevVersion}/${FILENAME_INTERFOLDER}/${FILENAME_SAMPLE_FOLDER}/ ${PATH_BASE_MODEL}/${newFolder} ${PATH_BASE_SAMPLE}/${newVersion}/${FILENAME_INTERFOLDER}/${FILENAME_SAMPLE_FOLDER}/ ${prevFolder} ${newFolder}
-
-###time step 6
-prevFolder=model00006.xml
-newFolder=model00007.xml
-
-prevVersion=FinancialServices_2018-01-23
-newVersion=FinancialServices_2018-02-20
-#Execute
-java -Xmx9g -jar ./tools/stability_evaluator/StabilityCalculator_icst.jar ${PATH_CSV}/${FILENAME_CSV} ${PATH_BASE_MODEL}/${prevFolder} ${PATH_BASE_SAMPLE}/${prevVersion}/${FILENAME_INTERFOLDER}/${FILENAME_SAMPLE_FOLDER}/ ${PATH_BASE_MODEL}/${newFolder} ${PATH_BASE_SAMPLE}/${newVersion}/${FILENAME_INTERFOLDER}/${FILENAME_SAMPLE_FOLDER}/ ${prevFolder} ${newFolder}
-
-###time step 7
-prevFolder=model00007.xml
-newFolder=model00008.xml
-
-prevVersion=FinancialServices_2018-02-20
-newVersion=FinancialServices_2018-03-26
-#Execute
-java -Xmx9g -jar ./tools/stability_evaluator/StabilityCalculator_icst.jar ${PATH_CSV}/${FILENAME_CSV} ${PATH_BASE_MODEL}/${prevFolder} ${PATH_BASE_SAMPLE}/${prevVersion}/${FILENAME_INTERFOLDER}/${FILENAME_SAMPLE_FOLDER}/ ${PATH_BASE_MODEL}/${newFolder} ${PATH_BASE_SAMPLE}/${newVersion}/${FILENAME_INTERFOLDER}/${FILENAME_SAMPLE_FOLDER}/ ${prevFolder} ${newFolder}
-
-###time step 8
-prevFolder=model00008.xml
-newFolder=model00009.xml
-
-prevVersion=FinancialServices_2018-03-26
-newVersion=FinancialServices_2018-04-23
-#Execute
-java -Xmx9g -jar ./tools/stability_evaluator/StabilityCalculator_icst.jar ${PATH_CSV}/${FILENAME_CSV} ${PATH_BASE_MODEL}/${prevFolder} ${PATH_BASE_SAMPLE}/${prevVersion}/${FILENAME_INTERFOLDER}/${FILENAME_SAMPLE_FOLDER}/ ${PATH_BASE_MODEL}/${newFolder} ${PATH_BASE_SAMPLE}/${newVersion}/${FILENAME_INTERFOLDER}/${FILENAME_SAMPLE_FOLDER}/ ${prevFolder} ${newFolder}
-
-###time step 9
-prevFolder=model00009.xml
-newFolder=model00010.xml
-
-prevVersion=FinancialServices_2018-04-23
-newVersion=FinancialServices_2018-05-09
-#Execute
-java -Xmx9g -jar ./tools/stability_evaluator/StabilityCalculator_icst.jar ${PATH_CSV}/${FILENAME_CSV} ${PATH_BASE_MODEL}/${prevFolder} ${PATH_BASE_SAMPLE}/${prevVersion}/${FILENAME_INTERFOLDER}/${FILENAME_SAMPLE_FOLDER}/ ${PATH_BASE_MODEL}/${newFolder} ${PATH_BASE_SAMPLE}/${newVersion}/${FILENAME_INTERFOLDER}/${FILENAME_SAMPLE_FOLDER}/ ${prevFolder} ${newFolder}

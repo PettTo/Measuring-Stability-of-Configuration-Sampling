@@ -10,14 +10,19 @@ PATH_FinancialServices01=${PATH_DATA}/financialServices01/models
 PATH_BussyBox=${PATH_DATA}/busybox_monthlySnapshot/models
 
 ####### busyBox
-cd ${PATH_BussyBox}
+#cd ${PATH_BussyBox}
+#for year in *; do
+#	tar -zcvf ${year}.tar.gz ${year}
+#done
+
+cd ${PATH_FinancialServices01}
 for year in *; do
 	tar -zcvf ${year}.tar.gz ${year}
-	#echo ${year}
-#	for run in *; do
-#		tar -zcvf ${run}.tar.gz ${run}
-#		rm ${run}
-#	done
+done
+
+cd ${PATH_Automotive02}
+for year in *; do
+	tar -zcvf ${year}.tar.gz ${year}
 done
 
 
