@@ -91,7 +91,7 @@ for (( i=0; i<$len; i++ )); do
 	FILENAME_CSV=random.csv
 	FILE_RUNTIME=random_runtime.csv
 	
-#	FILENAME_SAMPLE_FOLDER=products_random
+	FILENAME_SAMPLE_FOLDER=products_random
 	sampleOld=${PATH_BASE_SAMPLE}${yearOld}${PROCEDURE}/${FILENAME_SAMPLE_FOLDER}
 	sampleNew=${PATH_BASE_SAMPLE}${yearNew}${PROCEDURE}/${FILENAME_SAMPLE_FOLDER}
 	
@@ -163,7 +163,7 @@ for (( i=0; i<$len; i++ )); do
 	## Random with msoc
 	PROCEDURE=random
 	FILENAME_CSV=random.csv
-	FILE_RUNTIME=icpl_runtime.csv
+	FILE_RUNTIME=random_runtime.csv
 	
 	FILENAME_SAMPLE_FOLDER=products_random
 	sampleOld=${PATH_BASE_SAMPLE}${yearOld}${PROCEDURE}/${FILENAME_SAMPLE_FOLDER}
@@ -237,7 +237,7 @@ for (( i=0; i<$len; i++ )); do
 	## Random with icst
 	PROCEDURE=random
 	FILENAME_CSV=random.csv
-	FILE_RUNTIME=incling_runtime.csv
+	FILE_RUNTIME=random_runtime.csv
 	
 	FILENAME_SAMPLE_FOLDER=products_random
 	sampleOld=${PATH_BASE_SAMPLE}${yearOld}${PROCEDURE}/${FILENAME_SAMPLE_FOLDER}

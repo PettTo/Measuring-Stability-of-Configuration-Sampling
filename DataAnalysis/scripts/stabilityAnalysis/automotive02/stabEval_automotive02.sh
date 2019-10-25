@@ -1,75 +1,149 @@
 #! /bin/bash
 
 # Go to main directory
-cd ..
+cd .. 
 PATH_CURRENT=$PWD
-PATH_BASE_MODEL=${PATH_CURRENT}/data/automotive02/models
+PATH_BASE_MODEL=${PATH_CURRENT}/data/automotive02/models/
+PATH_BASE_SAMPLE=${PATH_CURRENT}/data/automotive02/samples/
 PATH_CSV=${PATH_CURRENT}/data/automotive02/stability_csv
-#FILENAME_MODEL=model.xml
+PATH_RUNTIME=${PATH_CURRENT}/data/automotive02/runtime_csv
+FILENAME_MODEL=model.xml
 
-########## calculate stability of incling
-PATH_BASE_SAMPLE=${PATH_CURRENT}/data/automotive02/samples/
-FILENAME_CSV=incling4.csv
-FILENAME_INTERFOLDER=IncLing
-FILENAME_SAMPLE_FOLDER=products_IncLing4
-###first time step
-prevFolder=model00001.xml
-newFolder=model00002.xml
+PATH_JAR=${PATH_CURRENT}/tools/StabilityCalculator/Jar/StabilityCalculator.jar
 
-prevVersion=Version1
-newVersion=Version2
-#Execute
-java -Xmx9g -jar ./tools/stability_evaluator/StabilityCalculator_icst.jar ${PATH_CSV}/${FILENAME_CSV} ${PATH_BASE_MODEL}/${prevFolder} ${PATH_BASE_SAMPLE}/${prevVersion}/${FILENAME_INTERFOLDER}/${FILENAME_SAMPLE_FOLDER}/ ${PATH_BASE_MODEL}/${newFolder} ${PATH_BASE_SAMPLE}/${newVersion}/${FILENAME_INTERFOLDER}/${FILENAME_SAMPLE_FOLDER}/ ${prevFolder} ${newFolder}
+cd ${PATH_BASE_MODEL}
+array=($(ls -d */))
+#echo ${array[@]}
+## get length of $array -1
+len=${#array[@]}-1
+ 
+## start of similarity analysis
+for (( i=0; i<$len; i++ )); do 
+	yearOld=${array[$i]}
+	echo "YearNew$: "${yearOld};
+	yearNew=${array[$i+1]}
+	echo "YearNew$: "${yearNew};
+	
+	# Set up parameters for java execution
+	modelOld=${PATH_BASE_MODEL}${yearOld}${FILENAME_MODEL}
+	modelNew=${PATH_BASE_MODEL}${yearNew}${FILENAME_MODEL}
+	
+#### Analysis ROIC Metric
+	METRIC=roic
+	## IncLing with ROIC
+	PROCEDURE=IncLing
+	FILENAME_CSV=incling.csv
+	FILE_RUNTIME=incling_runtime.csv
+	
+	FILENAME_SAMPLE_FOLDER=products_IncLing1
+	sampleOld=${PATH_BASE_SAMPLE}${yearOld}${PROCEDURE}/${FILENAME_SAMPLE_FOLDER}
+	sampleNew=${PATH_BASE_SAMPLE}${yearNew}${PROCEDURE}/${FILENAME_SAMPLE_FOLDER}
+	
+	#measure start time 
+	start=`date +%s`
+	#execute metric
+	java -Xmx9g -jar ${PATH_JAR} ${METRIC} ${PATH_CSV} ${FILENAME_CSV} ${modelOld} ${sampleOld}/ ${modelNew} ${sampleNew}/ ${yearOld} ${yearNew}
+	# measure ned time and calculate runtime
+	end=`date +%s`
+	runtime=$((end-start))
+	echo ${yearOld}";"${yearNew}";"${runtime} >> ${PATH_RUNTIME}/${METRIC}/${FIlE_RUNTIME}
+	
+	## Random with ROIC
+	PROCEDURE=Random
+	FILENAME_CSV=random.csv
+	FILE_RUNTIME=random_runtime.csv
+	
+	FILENAME_SAMPLE_FOLDER=products_Random1
+	sampleOld=${PATH_BASE_SAMPLE}${yearOld}${PROCEDURE}/${FILENAME_SAMPLE_FOLDER}
+	sampleNew=${PATH_BASE_SAMPLE}${yearNew}${PROCEDURE}/${FILENAME_SAMPLE_FOLDER}
+	
+	#measure start time 
+	start=`date +%s`
+	#execute metric
+	java -Xmx9g -jar ${PATH_JAR} ${METRIC} ${PATH_CSV} ${FILENAME_CSV} ${modelOld} ${sampleOld}/ ${modelNew} ${sampleNew}/ ${yearOld} ${yearNew}
+	# measure ned time and calculate runtime
+	end=`date +%s`
+	runtime=$((end-start))
+	echo ${yearOld}";"${yearNew}";"${runtime} >> ${PATH_RUNTIME}/${METRIC}/${FIlE_RUNTIME}
+	
+#### Analysis MSOC Metric
+	METRIC=msoc
+	
+	## IncLing with msoc
+	PROCEDURE=IncLing
+	FILENAME_CSV=incling.csv
+	FILE_RUNTIME=incling_runtime.csv
+	
+	FILENAME_SAMPLE_FOLDER=products_IncLing1
+	sampleOld=${PATH_BASE_SAMPLE}${yearOld}${PROCEDURE}/${FILENAME_SAMPLE_FOLDER}
+	sampleNew=${PATH_BASE_SAMPLE}${yearNew}${PROCEDURE}/${FILENAME_SAMPLE_FOLDER}
+	
+	#measure start time 
+	start=`date +%s`
+	#execute metric
+	java -Xmx9g -jar ${PATH_JAR} ${METRIC} ${PATH_CSV} ${FILENAME_CSV} ${modelOld} ${sampleOld}/ ${modelNew} ${sampleNew}/ ${yearOld} ${yearNew}
+	# measure ned time and calculate runtime
+	end=`date +%s`
+	runtime=$((end-start))
+	echo ${yearOld}";"${yearNew}";"${runtime} >> ${PATH_RUNTIME}/${METRIC}/${FIlE_RUNTIME}
+	
+	## Random with msoc
+	PROCEDURE=Random
+	FILENAME_CSV=random.csv
+	FILE_RUNTIME=random_runtime.csv
+	
+	FILENAME_SAMPLE_FOLDER=products_Random1
+	sampleOld=${PATH_BASE_SAMPLE}${yearOld}${PROCEDURE}/${FILENAME_SAMPLE_FOLDER}
+	sampleNew=${PATH_BASE_SAMPLE}${yearNew}${PROCEDURE}/${FILENAME_SAMPLE_FOLDER}
+	
+	#measure start time 
+	start=`date +%s`
+	#execute metric
+	java -Xmx9g -jar ${PATH_JAR} ${METRIC} ${PATH_CSV} ${FILENAME_CSV} ${modelOld} ${sampleOld}/ ${modelNew} ${sampleNew}/ ${yearOld} ${yearNew}
+	# measure ned time and calculate runtime
+	end=`date +%s`
+	runtime=$((end-start))
+	echo ${yearOld}";"${yearNew}";"${runtime} >> ${PATH_RUNTIME}/${METRIC}/${FIlE_RUNTIME}
+	
+#### Analysis ICST Metric
+	METRIC=icst
+	
+	## IncLing with icst
+	PROCEDURE=IncLing
+	FILENAME_CSV=incling.csv
+	FILE_RUNTIME=incling_runtime.csv
+	
+	FILENAME_SAMPLE_FOLDER=products_IncLing1
+	sampleOld=${PATH_BASE_SAMPLE}${yearOld}${PROCEDURE}/${FILENAME_SAMPLE_FOLDER}
+	sampleNew=${PATH_BASE_SAMPLE}${yearNew}${PROCEDURE}/${FILENAME_SAMPLE_FOLDER}
+	
+	#measure start time 
+	start=`date +%s`
+	#execute metric
+	java -Xmx9g -jar ${PATH_JAR} ${METRIC} ${PATH_CSV} ${FILENAME_CSV} ${modelOld} ${sampleOld}/ ${modelNew} ${sampleNew}/ ${yearOld} ${yearNew}
+	# measure ned time and calculate runtime
+	end=`date +%s`
+	runtime=$((end-start))
+	echo ${yearOld}";"${yearNew}";"${runtime} >> ${PATH_RUNTIME}/${METRIC}/${FIlE_RUNTIME}
+	
+	## Random with icst
+	PROCEDURE=Random
+	FILENAME_CSV=random.csv
+	FILE_RUNTIME=random_runtime.csv
+	
+	FILENAME_SAMPLE_FOLDER=products_Random1
+	sampleOld=${PATH_BASE_SAMPLE}${yearOld}${PROCEDURE}/${FILENAME_SAMPLE_FOLDER}
+	sampleNew=${PATH_BASE_SAMPLE}${yearNew}${PROCEDURE}/${FILENAME_SAMPLE_FOLDER}
+	
+	#measure start time 
+	start=`date +%s`
+	#execute metric
+	java -Xmx9g -jar ${PATH_JAR} ${METRIC} ${PATH_CSV} ${FILENAME_CSV} ${modelOld} ${sampleOld}/ ${modelNew} ${sampleNew}/ ${yearOld} ${yearNew}
+	# measure ned time and calculate runtime
+	end=`date +%s`
+	runtime=$((end-start))
+	echo ${yearOld}";"${yearNew}";"${runtime} >> ${PATH_RUNTIME}/${METRIC}/${FIlE_RUNTIME}
+done
 
-###first time step
-prevFolder=model00002.xml
-newFolder=model00003.xml
-
-prevVersion=Version2
-newVersion=Version3
-#Execute
-java -Xmx9g -jar ./tools/stability_evaluator/StabilityCalculator_icst.jar ${PATH_CSV}/${FILENAME_CSV} ${PATH_BASE_MODEL}/${prevFolder} ${PATH_BASE_SAMPLE}/${prevVersion}/${FILENAME_INTERFOLDER}/${FILENAME_SAMPLE_FOLDER}/ ${PATH_BASE_MODEL}/${newFolder} ${PATH_BASE_SAMPLE}/${newVersion}/${FILENAME_INTERFOLDER}/${FILENAME_SAMPLE_FOLDER}/ ${prevFolder} ${newFolder}
-
-###third time step
-prevFolder=model00003.xml
-newFolder=model00004.xml
-
-prevVersion=Version3
-newVersion=Version4
-#Execute
-java -Xmx9g -jar ./tools/stability_evaluator/StabilityCalculator_icst.jar ${PATH_CSV}/${FILENAME_CSV} ${PATH_BASE_MODEL}/${prevFolder} ${PATH_BASE_SAMPLE}/${prevVersion}/${FILENAME_INTERFOLDER}/${FILENAME_SAMPLE_FOLDER}/ ${PATH_BASE_MODEL}/${newFolder} ${PATH_BASE_SAMPLE}/${newVersion}/${FILENAME_INTERFOLDER}/${FILENAME_SAMPLE_FOLDER}/ ${prevFolder} ${newFolder}
 
 
-
-
-########## calculate stability of random
-PATH_BASE_SAMPLE=${PATH_CURRENT}/data/automotive02/samples/
-FILENAME_CSV=random4.csv
-FILENAME_INTERFOLDER=Random
-FILENAME_SAMPLE_FOLDER=products_Rand4
-###first time step
-prevFolder=model00001.xml
-newFolder=model00002.xml
-
-prevVersion=Version1
-newVersion=Version2
-#Execute
-java -Xmx9g -jar ./tools/stability_evaluator/StabilityCalculator_icst.jar ${PATH_CSV}/${FILENAME_CSV} ${PATH_BASE_MODEL}/${prevFolder} ${PATH_BASE_SAMPLE}/${prevVersion}/${FILENAME_INTERFOLDER}/${FILENAME_SAMPLE_FOLDER}/ ${PATH_BASE_MODEL}/${newFolder} ${PATH_BASE_SAMPLE}/${newVersion}/${FILENAME_INTERFOLDER}/${FILENAME_SAMPLE_FOLDER}/ ${prevFolder} ${newFolder}
-
-###first time step
-prevFolder=model00002.xml
-newFolder=model00003.xml
-
-prevVersion=Version2
-newVersion=Version3
-#Execute
-java -Xmx9g -jar ./tools/stability_evaluator/StabilityCalculator_icst.jar ${PATH_CSV}/${FILENAME_CSV} ${PATH_BASE_MODEL}/${prevFolder} ${PATH_BASE_SAMPLE}/${prevVersion}/${FILENAME_INTERFOLDER}/${FILENAME_SAMPLE_FOLDER}/ ${PATH_BASE_MODEL}/${newFolder} ${PATH_BASE_SAMPLE}/${newVersion}/${FILENAME_INTERFOLDER}/${FILENAME_SAMPLE_FOLDER}/ ${prevFolder} ${newFolder}
-
-###third time step
-prevFolder=model00003.xml
-newFolder=model00004.xml
-
-prevVersion=Version3
-newVersion=Version4
-#Execute
-java -Xmx9g -jar ./tools/stability_evaluator/StabilityCalculator_icst.jar ${PATH_CSV}/${FILENAME_CSV} ${PATH_BASE_MODEL}/${prevFolder} ${PATH_BASE_SAMPLE}/${prevVersion}/${FILENAME_INTERFOLDER}/${FILENAME_SAMPLE_FOLDER}/ ${PATH_BASE_MODEL}/${newFolder} ${PATH_BASE_SAMPLE}/${newVersion}/${FILENAME_INTERFOLDER}/${FILENAME_SAMPLE_FOLDER}/ ${prevFolder} ${newFolder}

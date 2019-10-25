@@ -31,11 +31,11 @@ for (( i=0; i<$len; i++ )); do
 #### Analysis ROIC Metric
 	METRIC=roic
 	## Chvatal with ROIC
-	PROCEDURE=chvatal
+	PROCEDURE=Chvatal
 	FILENAME_CSV=chvatal.csv
 	FILE_RUNTIME=chvatal_runtime.csv
 	
-	FILENAME_SAMPLE_FOLDER=products_chvatal
+	FILENAME_SAMPLE_FOLDER=products_Chvatal1
 	sampleOld=${PATH_BASE_SAMPLE}${yearOld}${PROCEDURE}/${FILENAME_SAMPLE_FOLDER}
 	echo ${sampleOld}
 	sampleNew=${PATH_BASE_SAMPLE}${yearNew}${PROCEDURE}/${FILENAME_SAMPLE_FOLDER}
@@ -51,11 +51,11 @@ for (( i=0; i<$len; i++ )); do
 	echo ${yearOld}";"${yearNew}";"${runtime} >> ${PATH_RUNTIME}/${METRIC}/${FIlE_RUNTIME}
 	
 	## ICPL with ROIC
-	PROCEDURE=icpl
+	PROCEDURE=ICPL
 	FILENAME_CSV=icpl.csv
 	FILE_RUNTIME=icpl_runtime.csv
 	
-	FILENAME_SAMPLE_FOLDER=products_icpl
+	FILENAME_SAMPLE_FOLDER=products_ICPL1
 	sampleOld=${PATH_BASE_SAMPLE}${yearOld}${PROCEDURE}/${FILENAME_SAMPLE_FOLDER}
 	sampleNew=${PATH_BASE_SAMPLE}${yearNew}${PROCEDURE}/${FILENAME_SAMPLE_FOLDER}
 	
@@ -69,11 +69,11 @@ for (( i=0; i<$len; i++ )); do
 	echo ${yearOld}";"${yearNew}";"${runtime} >> ${PATH_RUNTIME}/${METRIC}/${FIlE_RUNTIME}
 	
 	## IncLing with ROIC
-	PROCEDURE=incling
+	PROCEDURE=IncLing
 	FILENAME_CSV=incling.csv
 	FILE_RUNTIME=incling_runtime.csv
 	
-	FILENAME_SAMPLE_FOLDER=products_incling
+	FILENAME_SAMPLE_FOLDER=products_IncLing1
 	sampleOld=${PATH_BASE_SAMPLE}${yearOld}${PROCEDURE}/${FILENAME_SAMPLE_FOLDER}
 	sampleNew=${PATH_BASE_SAMPLE}${yearNew}${PROCEDURE}/${FILENAME_SAMPLE_FOLDER}
 	
@@ -87,11 +87,11 @@ for (( i=0; i<$len; i++ )); do
 	echo ${yearOld}";"${yearNew}";"${runtime} >> ${PATH_RUNTIME}/${METRIC}/${FIlE_RUNTIME}
 	
 	## Random with ROIC
-	PROCEDURE=random
+	PROCEDURE=Random
 	FILENAME_CSV=random.csv
 	FILE_RUNTIME=random_runtime.csv
 	
-#	FILENAME_SAMPLE_FOLDER=products_random
+	FILENAME_SAMPLE_FOLDER=products_Random1
 	sampleOld=${PATH_BASE_SAMPLE}${yearOld}${PROCEDURE}/${FILENAME_SAMPLE_FOLDER}
 	sampleNew=${PATH_BASE_SAMPLE}${yearNew}${PROCEDURE}/${FILENAME_SAMPLE_FOLDER}
 	
@@ -107,11 +107,11 @@ for (( i=0; i<$len; i++ )); do
 #### Analysis MSOC Metric
 	METRIC=msoc
 	## Chvatal with msoc
-	PROCEDURE=chvatal
+	PROCEDURE=Chvatal
 	FILENAME_CSV=chvatal.csv
 	FILE_RUNTIME=chvatal_runtime.csv
 	
-	FILENAME_SAMPLE_FOLDER=products_chvatal
+	FILENAME_SAMPLE_FOLDER=products_Chvatal1
 	sampleOld=${PATH_BASE_SAMPLE}${yearOld}${PROCEDURE}/${FILENAME_SAMPLE_FOLDER}
 	sampleNew=${PATH_BASE_SAMPLE}${yearNew}${PROCEDURE}/${FILENAME_SAMPLE_FOLDER}
 	
@@ -125,11 +125,11 @@ for (( i=0; i<$len; i++ )); do
 	echo ${yearOld}";"${yearNew}";"${runtime} >> ${PATH_RUNTIME}/${METRIC}/${FIlE_RUNTIME}
 	
 	## ICPL with msoc
-	PROCEDURE=icpl
+	PROCEDURE=ICPL
 	FILENAME_CSV=icpl.csv
 	FILE_RUNTIME=icpl_runtime.csv
 	
-	FILENAME_SAMPLE_FOLDER=products_icpl
+	FILENAME_SAMPLE_FOLDER=products_ICPL1
 	sampleOld=${PATH_BASE_SAMPLE}${yearOld}${PROCEDURE}/${FILENAME_SAMPLE_FOLDER}
 	sampleNew=${PATH_BASE_SAMPLE}${yearNew}${PROCEDURE}/${FILENAME_SAMPLE_FOLDER}
 	
@@ -143,11 +143,11 @@ for (( i=0; i<$len; i++ )); do
 	echo ${yearOld}";"${yearNew}";"${runtime} >> ${PATH_RUNTIME}/${METRIC}/${FIlE_RUNTIME}
 	
 	## IncLing with msoc
-	PROCEDURE=incling
+	PROCEDURE=IncLing
 	FILENAME_CSV=incling.csv
 	FILE_RUNTIME=incling_runtime.csv
 	
-	FILENAME_SAMPLE_FOLDER=products_incling
+	FILENAME_SAMPLE_FOLDER=products_IncLing1
 	sampleOld=${PATH_BASE_SAMPLE}${yearOld}${PROCEDURE}/${FILENAME_SAMPLE_FOLDER}
 	sampleNew=${PATH_BASE_SAMPLE}${yearNew}${PROCEDURE}/${FILENAME_SAMPLE_FOLDER}
 	
@@ -161,11 +161,11 @@ for (( i=0; i<$len; i++ )); do
 	echo ${yearOld}";"${yearNew}";"${runtime} >> ${PATH_RUNTIME}/${METRIC}/${FIlE_RUNTIME}
 	
 	## Random with msoc
-	PROCEDURE=random
+	PROCEDURE=Random
 	FILENAME_CSV=random.csv
-	FILE_RUNTIME=icpl_runtime.csv
+	FILE_RUNTIME=random_runtime.csv
 	
-	FILENAME_SAMPLE_FOLDER=products_random
+	FILENAME_SAMPLE_FOLDER=products_Random1
 	sampleOld=${PATH_BASE_SAMPLE}${yearOld}${PROCEDURE}/${FILENAME_SAMPLE_FOLDER}
 	sampleNew=${PATH_BASE_SAMPLE}${yearNew}${PROCEDURE}/${FILENAME_SAMPLE_FOLDER}
 	
@@ -181,11 +181,11 @@ for (( i=0; i<$len; i++ )); do
 #### Analysis ICST Metric
 	METRIC=icst
 	## Chvatal with ICST
-	PROCEDURE=chvatal
+	PROCEDURE=Chvatal
 	FILENAME_CSV=chvatal.csv
 	FILE_RUNTIME=chvatal_runtime.csv
 	
-	FILENAME_SAMPLE_FOLDER=products_chvatal
+	FILENAME_SAMPLE_FOLDER=products_Chvatal1
 	sampleOld=${PATH_BASE_SAMPLE}${yearOld}${PROCEDURE}/${FILENAME_SAMPLE_FOLDER}
 	sampleNew=${PATH_BASE_SAMPLE}${yearNew}${PROCEDURE}/${FILENAME_SAMPLE_FOLDER}
 	
@@ -199,11 +199,11 @@ for (( i=0; i<$len; i++ )); do
 	echo ${yearOld}";"${yearNew}";"${runtime} >> ${PATH_RUNTIME}/${METRIC}/${FIlE_RUNTIME}
 	
 	## ICPL with icst
-	PROCEDURE=icpl
+	PROCEDURE=ICPL
 	FILENAME_CSV=icpl.csv
 	FILE_RUNTIME=icpl_runtime.csv
 	
-	FILENAME_SAMPLE_FOLDER=products_icpl
+	FILENAME_SAMPLE_FOLDER=products_ICPL1
 	sampleOld=${PATH_BASE_SAMPLE}${yearOld}${PROCEDURE}/${FILENAME_SAMPLE_FOLDER}
 	sampleNew=${PATH_BASE_SAMPLE}${yearNew}${PROCEDURE}/${FILENAME_SAMPLE_FOLDER}
 	
@@ -217,11 +217,11 @@ for (( i=0; i<$len; i++ )); do
 	echo ${yearOld}";"${yearNew}";"${runtime} >> ${PATH_RUNTIME}/${METRIC}/${FIlE_RUNTIME}
 	
 	## IncLing with icst
-	PROCEDURE=incling
+	PROCEDURE=IncLing
 	FILENAME_CSV=incling.csv
 	FILE_RUNTIME=incling_runtime.csv
 	
-	FILENAME_SAMPLE_FOLDER=products_incling
+	FILENAME_SAMPLE_FOLDER=products_IncLing1
 	sampleOld=${PATH_BASE_SAMPLE}${yearOld}${PROCEDURE}/${FILENAME_SAMPLE_FOLDER}
 	sampleNew=${PATH_BASE_SAMPLE}${yearNew}${PROCEDURE}/${FILENAME_SAMPLE_FOLDER}
 	
@@ -235,11 +235,11 @@ for (( i=0; i<$len; i++ )); do
 	echo ${yearOld}";"${yearNew}";"${runtime} >> ${PATH_RUNTIME}/${METRIC}/${FIlE_RUNTIME}
 	
 	## Random with icst
-	PROCEDURE=random
+	PROCEDURE=Random
 	FILENAME_CSV=random.csv
-	FILE_RUNTIME=incling_runtime.csv
+	FILE_RUNTIME=random_runtime.csv
 	
-	FILENAME_SAMPLE_FOLDER=products_random
+	FILENAME_SAMPLE_FOLDER=products_Random1
 	sampleOld=${PATH_BASE_SAMPLE}${yearOld}${PROCEDURE}/${FILENAME_SAMPLE_FOLDER}
 	sampleNew=${PATH_BASE_SAMPLE}${yearNew}${PROCEDURE}/${FILENAME_SAMPLE_FOLDER}
 	
