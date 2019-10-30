@@ -46,7 +46,7 @@ for (( i=0; i<$len; i++ )); do
 	# measure ned time and calculate runtime
 	end=`date +%s`
 	runtime=$((end-start))
-	echo ${yearOld}";"${yearNew}";"${runtime} >> ${PATH_RUNTIME}/${METRIC}/${FIlE_RUNTIME}
+	echo ${yearOld}";"${yearNew}";"${runtime} >> ${PATH_RUNTIME}/${METRIC}/${FILE_RUNTIME}
 	
 	## Random with ROIC
 	PROCEDURE=Random
@@ -64,7 +64,7 @@ for (( i=0; i<$len; i++ )); do
 	# measure ned time and calculate runtime
 	end=`date +%s`
 	runtime=$((end-start))
-	echo ${yearOld}";"${yearNew}";"${runtime} >> ${PATH_RUNTIME}/${METRIC}/${FIlE_RUNTIME}
+	echo ${yearOld}";"${yearNew}";"${runtime} >> ${PATH_RUNTIME}/${METRIC}/${FILE_RUNTIME}
 	
 #### Analysis MSOC Metric
 	METRIC=msoc
@@ -85,7 +85,7 @@ for (( i=0; i<$len; i++ )); do
 	# measure ned time and calculate runtime
 	end=`date +%s`
 	runtime=$((end-start))
-	echo ${yearOld}";"${yearNew}";"${runtime} >> ${PATH_RUNTIME}/${METRIC}/${FIlE_RUNTIME}
+	echo ${yearOld}";"${yearNew}";"${runtime} >> ${PATH_RUNTIME}/${METRIC}/${FILE_RUNTIME}
 	
 	## Random with msoc
 	PROCEDURE=Random
@@ -103,7 +103,7 @@ for (( i=0; i<$len; i++ )); do
 	# measure ned time and calculate runtime
 	end=`date +%s`
 	runtime=$((end-start))
-	echo ${yearOld}";"${yearNew}";"${runtime} >> ${PATH_RUNTIME}/${METRIC}/${FIlE_RUNTIME}
+	echo ${yearOld}";"${yearNew}";"${runtime} >> ${PATH_RUNTIME}/${METRIC}/${FILE_RUNTIME}
 	
 #### Analysis ICST Metric
 	METRIC=icst
@@ -124,7 +124,7 @@ for (( i=0; i<$len; i++ )); do
 	# measure ned time and calculate runtime
 	end=`date +%s`
 	runtime=$((end-start))
-	echo ${yearOld}";"${yearNew}";"${runtime} >> ${PATH_RUNTIME}/${METRIC}/${FIlE_RUNTIME}
+	echo ${yearOld}";"${yearNew}";"${runtime} >> ${PATH_RUNTIME}/${METRIC}/${FILE_RUNTIME}
 	
 	## Random with icst
 	PROCEDURE=Random
@@ -142,7 +142,7 @@ for (( i=0; i<$len; i++ )); do
 	# measure ned time and calculate runtime
 	end=`date +%s`
 	runtime=$((end-start))
-	echo ${yearOld}";"${yearNew}";"${runtime} >> ${PATH_RUNTIME}/${METRIC}/${FIlE_RUNTIME}
+	echo ${yearOld}";"${yearNew}";"${runtime} >> ${PATH_RUNTIME}/${METRIC}/${FILE_RUNTIME}
 done
 
 
